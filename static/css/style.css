@@ -1,0 +1,11 @@
+
+@import "tailwindcss";
+
+
+.note-li {
+    color: red;
+}
+
+ul.errorlist {
+    display:none;
+}

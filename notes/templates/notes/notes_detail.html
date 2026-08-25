@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w-11/12 mx-auto border rounded-2xl py-5">
+    <h1 class="text-2xl pb-5">{{note.title}}{% if note.is_public %}<span class="bg-red-500">Public</span>{% endif %}</h1>
+    <p>{{note.text}}</p>
+    <p>{{note.likes}}</p>
+</div>
+
+<form method="post" class="d-inline" action="{% url 'notes.add_like' pk=note.id%}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Like this post!</button>
+</form>
+
+<form method="post" class="d-inline" action="{% url 'notes.change_visibility' pk=note.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+        {% if note.is_public %}
+            Make it private
+        {% else %}
+            Make it public
+        {% endif %}
+    </button>
+</form>
+
+<a href="{% url 'notes.list' %}">Back</a>
+<a href="{% url 'notes.update' pk=note.id%}" class="inline-block my-5 py-2 px-4 rounded bg-blue-500 hover:bg-blue-700 text-white">Edit</a>
+<a href="{% url 'notes.delete' pk=note.id%}" class="inline-block my-5 py-2 px-4 rounded bg-blue-500 hover:bg-blue-700 text-white">Delete</a>
+{% endblock %}

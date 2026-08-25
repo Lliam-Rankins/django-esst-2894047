@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="my-5">These are the notes</h1>
+
+    <div class="grid grid-cols-3 gap-2 items-center mx-5">
+        {% for note in notes %}
+        <div class="">
+            <a href="{% url 'notes.detail' pk=note.id%}">
+                <div class="p-3 border hover:bg-gray-300">
+                    <h3 class="text-3xl font-bold">{{note.title}}</h3>
+                    {{note.text|truncatechars:10}}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+        <!-- Django Template logic -->
+        <!-- {% for note in notes %}
+             <li class="text-amber-800">{{note.title}}</li>
+        {% endfor %} -->
+
+{% endblock %}

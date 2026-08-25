@@ -1,0 +1,31 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'src/output.css' %}">
+    </head>
+
+    <body>
+        <nav class="bg-gray-300">
+            <div class="ms-auto">
+                {% if user.is_authenticated %}
+                    <!-- Logout Logic -->
+                    <a href="{% url 'home' %}" class="rounded bg-white">Home</a>
+                    <a href="{% url 'note.new' %}" class="rounded bg-white">Create</a>
+                    <form method="post" action="{% url 'logout' %}" class="rounded bg-white">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <!-- Login Logic -->
+                    <a href="{% url 'signup' %}" class="rounded bg-white">Signup</a>
+                    <a href="{% url 'login' %}" class="rounded bg-white">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="my-5 text-center container" >
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
